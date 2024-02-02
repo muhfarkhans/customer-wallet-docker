@@ -10,3 +10,8 @@
 6. docker-compose exec app npm install
 7. docker-compose exec app npm run build
 8. docker-compose exec app php artisan queue:work
+9. http://localhost/
+
+## Notes
+
+The transaction status is unpredictable as it depends on the HTTP request.
