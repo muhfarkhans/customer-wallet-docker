@@ -17,6 +17,7 @@ class Balance extends Component
     {
         $this->balance = $this->getBalance();
         $this->dispatch('refresh-table');
+        $this->dispatch('set-balance', $this->balance);
     }
 
     #[On('refresh-balance')]

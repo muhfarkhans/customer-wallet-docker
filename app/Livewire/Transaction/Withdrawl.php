@@ -4,15 +4,36 @@ namespace App\Livewire\Transaction;
 
 use App\Jobs\SendToPaymentGateway;
 use Auth;
+use App\Livewire\Transaction\Balance;
 use App\Models\Transaction;
 use Livewire\Component;
-use Livewire\Attributes\Validate;
 use Illuminate\Support\Str;
 
 class Withdrawl extends Component
 {
-    #[Validate('required|gt:0')]
     public $amount;
+
+    public function __construct()
+    {
+        $_balance = new Balance();
+        $this->balance = $_balance->getBalance();
+    }
+
+    protected $listeners = [
+        'set-balance' => 'setBalance'
+    ];
+
+    public function setBalance($value)
+    {
+        $this->balance = $value;
+    }
+
+    public function rules()
+    {
+        return [
+            'amount' => 'required|lt:' . $this->balance + 1,
+        ];
+    }
 
     public function store()
     {
@@ -24,7 +45,7 @@ class Withdrawl extends Component
             'user_id' => Auth::user()->id,
             'amount' => $this->amount,
             'type' => 'withdrawl',
-            'status' => 'pending',
+            'status' => 'success',
         ]);
 
         dispatch(new SendToPaymentGateway($transaction, Auth::user()));
