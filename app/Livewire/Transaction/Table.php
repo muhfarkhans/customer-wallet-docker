@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Transaction;
 
+use Auth;
 use App\Models\Transaction;
 use Livewire\Attributes\On;
 use Illuminate\Database\Eloquent\Builder;
@@ -28,7 +29,10 @@ class Table extends DataTableComponent
 
     public function builder(): Builder
     {
+        $user_id = Auth::user()->id;
+
         return Transaction::query()
+            ->where('user_id', $user_id)
             ->orderBy('created_at', 'desc')
             ->select();
     }
