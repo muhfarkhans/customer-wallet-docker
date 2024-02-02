@@ -22,4 +22,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth.bearer', 'prefix' => '/transaction'], function () {
     Route::post('/', [TransactionController::class, 'create']);
 });
-Route::post('/test', [TransactionController::class, 'test']);
