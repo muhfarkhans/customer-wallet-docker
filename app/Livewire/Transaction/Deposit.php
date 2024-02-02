@@ -29,9 +29,10 @@ class Deposit extends Component
 
         dispatch(new SendToPaymentGateway($transaction, Auth::user()));
 
-        // $this->dispatch('close');
+        $this->dispatch('close');
         $this->dispatch('refresh-5');
         $this->dispatch('refresh-table');
+        $this->reset();
     }
 
     public function render()

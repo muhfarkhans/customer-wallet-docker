@@ -32,6 +32,7 @@ class Withdrawl extends Component
         $this->dispatch('close');
         $this->dispatch('refresh-5');
         $this->dispatch('refresh-table');
+        $this->reset();
     }
 
     public function render()
